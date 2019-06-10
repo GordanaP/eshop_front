@@ -14,6 +14,9 @@
         <main class="container py-4">
             @yield('content')
         </main>
+
+        @include('partials._footer')
+
     </div>
 
     @include('partials._scripts')
