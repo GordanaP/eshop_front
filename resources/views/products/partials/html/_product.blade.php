@@ -14,14 +14,9 @@
                     View
                 </a>
 
-                <form action="#" method="POST">
-
-                    @csrf
-
-                    <button type="button" class="btn btn-sm btn-warning">
-                        Add To Cart
-                    </button>
-                </form>
+                @include('products.partials.forms._add_to_cart',
+                    ['product' => $product]
+                )
             </div>
         </div>
     </div>
