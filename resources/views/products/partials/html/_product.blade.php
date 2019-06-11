@@ -14,7 +14,7 @@
                     View
                 </a>
 
-                @include('products.partials.forms._add_to_cart',
+                @include('carts.partials.forms._add_item',
                     ['product' => $product]
                 )
             </div>

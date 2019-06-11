@@ -16,7 +16,9 @@ class CartItemController extends Controller
      */
     public function index()
     {
-        //
+        $cartItems = ShoppingCart::fromSession();
+
+        return view('carts.index', compact('cartItems'));
     }
 
     /**
@@ -37,11 +39,9 @@ class CartItemController extends Controller
      */
     public function store(Request $request, Product $product)
     {
-        // session()->forget('cart');
+        ShoppingCart::fromSession()->add($product);
 
-        ShoppingCart::fromSession()->add($product->id);
-
-        return ShoppingCart::fromSession();
+        return back();
     }
 
     /**
@@ -52,7 +52,7 @@ class CartItemController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -73,9 +73,9 @@ class CartItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        return $product;
     }
 
     /**
@@ -84,8 +84,8 @@ class CartItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        return $product;
     }
 }

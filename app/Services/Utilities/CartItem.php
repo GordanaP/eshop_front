@@ -4,12 +4,12 @@ namespace App\Services\Utilities;
 
 class CartItem
 {
-    public $product_id;
+    public $product;
     public $quantity;
 
-    public function __construct($product_id, $quantity)
+    public function __construct($product, $quantity)
     {
-        $this->product_id = $product_id;
+        $this->product = $product;
         $this->quantity = $quantity;
     }
 }

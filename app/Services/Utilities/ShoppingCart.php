@@ -12,11 +12,11 @@ class ShoppingCart extends Collection
         return session('cart', new self);
     }
 
-    public function add($product_id, $quantity = 1)
+    public function add($product, $quantity = 1)
     {
-        $totalQuantity = $this->totalQuantity($product_id, $quantity);
+        $totalQuantity = $this->totalQuantity($product, $quantity);
 
-        $this->put($product_id, new CartItem ($product_id, $totalQuantity));
+        $this->put($product->id, new CartItem ($product, $totalQuantity));
 
         $this->save();
     }
@@ -26,13 +26,13 @@ class ShoppingCart extends Collection
         return session()->put('cart', $this);
     }
 
-    private function totalQuantity($product_id, $quantity)
+    private function totalQuantity($product, $quantity)
     {
-        return $quantity + $this->inCartQuantity($product_id);
+        return $quantity + $this->inCartQuantity($product);
     }
 
-    private function inCartQuantity($product_id)
+    private function inCartQuantity($product)
     {
-        return optional($this->get($product_id))->quantity ?? 0;
+        return optional($this->get($product->id))->quantity ?? 0;
     }
 }
