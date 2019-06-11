@@ -4,7 +4,17 @@
 
 @section('content')
 
-    <h1 class="text-2xl font-light mb-4">View Cart</h1>
+    <h1 class="flex justify-between mb-2">
+        <span class="text-2xl font-light">View Cart</span>
+
+        @if (\App\Services\Utilities\ShoppingCart::fromSession()->isNotEmpty())
+            <span class="flex items-center">
+                @include('carts.partials.forms._destroy_cart')
+
+                <a href="#" class="btn btn-info text-white ml-1">Checkout</a>
+            </span>
+        @endif
+    </h1>
 
     @if (\App\Services\Utilities\ShoppingCart::fromSession()->isNotEmpty())
         <table class="table bg-white">

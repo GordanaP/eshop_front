@@ -21,6 +21,30 @@ class ShoppingCart extends Collection
         $this->save();
     }
 
+    public function update($product, $quantity)
+    {
+        $this->put($product->id, new CartItem ($product, $quantity));
+
+        $this->save();
+    }
+
+    public function remove($productId)
+    {
+        $this->forget($productId);
+
+        $this->save();
+    }
+
+    public function destroy()
+    {
+        session()->forget('cart');
+    }
+
+    public function countItems($values = 'quantity')
+    {
+        return $this->sum($values);
+    }
+
     private function save()
     {
         return session()->put('cart', $this);

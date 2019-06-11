@@ -21,7 +21,10 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('carts.index') }}">
-                        <i class="fa fa-heart"></i>
+                        <i class="fa fa-shopping-cart fa-lg"></i>
+                        <span class="badge relative" style="top: -12px; right: 10px">
+                            {{ App\Services\Utilities\ShoppingCart::fromSession()->countItems() }}
+                        </span>
                     </a>
                 </li>
                 <!-- Authentication Links -->

@@ -4,7 +4,8 @@
     @method('PATCH')
 
     <div class="flex w-1/2 mx-auto">
-        <input type="text" class="form-control text-center" value="{{ $item->quantity }}">
+        <input type="text" name="quantity" id="quantity" class="form-control text-center"
+        value="{{ $item->quantity }}">
 
         <button type="submit" class="btn">
             <i class="fa fa-refresh"></i>
