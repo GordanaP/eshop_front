@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Product;
-// use Illuminate\Http\Request;
 use App\Http\Requests\CartRequest;
 use App\Http\Controllers\Controller;
 use App\Services\Utilities\ShoppingCart;
@@ -17,19 +16,9 @@ class CartItemController extends Controller
      */
     public function index()
     {
-        $cartItems = ShoppingCart::fromSession();
+        $cartItems = ShoppingCart::fromSession()->except('address');
 
         return view('carts.index', compact('cartItems'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**

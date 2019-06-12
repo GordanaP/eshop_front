@@ -40,6 +40,13 @@ class ShoppingCart extends Collection
         session()->forget('cart');
     }
 
+    public function complete($address)
+    {
+        $this->put('address', $address);
+
+        $this->save();
+    }
+
     public function countItems($values = 'quantity')
     {
         return $this->sum($values);
