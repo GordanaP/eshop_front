@@ -5,7 +5,7 @@
         <div class="card-body">
             <p class="lead mb-1 uppercase">{{ $product->name }}</p>
 
-            <p class="mb-2 text-lg font-bold">${{ $product->price_in_dollars }}</p>
+            <p class="mb-2 text-lg font-bold">{{ Price::present($product->price_in_cents) }}</p>
 
             <p class="text-sm mb-4">{{ $product->description }}</p>
 

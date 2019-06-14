@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Order;
 
 use App\Order;
 use Illuminate\Http\Request;
+use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
-use App\Services\Utilities\ShoppingCart;
 
 class OrderController extends Controller
 {
@@ -26,7 +26,6 @@ class OrderController extends Controller
      */
     public function create()
     {
-        // return ShoppingCart::fromSession()->only('address');
         $cartItems = ShoppingCart::fromSession()->except('address');
 
         return view('orders.create', compact('cartItems'));

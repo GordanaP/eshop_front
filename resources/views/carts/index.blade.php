@@ -7,7 +7,7 @@
     <header class="flex justify-between mb-2">
         <span class="text-2xl font-light">View Cart</span>
 
-        @if (\App\Services\Utilities\ShoppingCart::fromSession()->isNotEmpty())
+        @if (! ShoppingCart::fromSession()->isEmpty())
             <span class="flex items-center">
                 @include('carts.partials.forms._destroy_cart')
 
@@ -17,8 +17,7 @@
             </span>
         @endif
     </header>
-
-    @if (\App\Services\Utilities\ShoppingCart::fromSession()->isNotEmpty())
+    @if (! ShoppingCart::fromSession()->isEmpty())
         <table class="table bg-white">
             <thead>
                 <th width="12%">Item</th>
@@ -35,6 +34,8 @@
                         'item' => $item,
                     ])
                 @endforeach
+
+                @include('carts.partials.tables._row_price')
             </tbody>
         </table>
     @else

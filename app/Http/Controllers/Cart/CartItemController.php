@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Product;
+use App\Facades\ShoppingCart;
 use App\Http\Requests\CartRequest;
 use App\Http\Controllers\Controller;
-use App\Services\Utilities\ShoppingCart;
 
 class CartItemController extends Controller
 {

@@ -23,7 +23,7 @@
                     <a class="nav-link" href="{{ route('carts.index') }}">
                         <i class="fa fa-shopping-cart fa-lg"></i>
                         <span class="badge relative" style="top: -12px; right: 10px">
-                            {{ App\Services\Utilities\ShoppingCart::fromSession()->countItems() }}
+                            {{ ShoppingCart::fromSession()->sum('quantity') }}
                         </span>
                     </a>
                 </li>

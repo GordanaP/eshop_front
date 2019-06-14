@@ -5,13 +5,13 @@
     <td>
         <p class="uppercase mb-2">
             <a href="{{ route('products.show', $productId) }}">
-                {{ collect($item)->get('product')->name }}
+                {{ $item->name }}
             </a>
         </p>
-        <p class="text-xs">{{ collect($item)->get('product')->description }}</p>
+        <p class="text-xs">{{ $item->description }}</p>
     </td>
     <td class="text-center">
-        {{ collect($item)->get('product')->price_in_dollars }}
+        {{ Price::present($item->price_in_cents) }}
     </td>
     <td class="text-center">
         @if (request()->route()->named('carts.index'))
@@ -23,13 +23,13 @@
         @endif
     </td>
     <td class="text-right">
-        Subtotal
+        {{ Price::present($item->subtotal) }}
     </td>
     @if (request()->route()->named('carts.index'))
-        <td class="text-right">
-            @include('carts.partials.forms._remove_item',
-                ['productId' => $productId]
-            )
-        </td>
-    @endif
-</tr>
+            <td class="text-right">
+                @include('carts.partials.forms._remove_item',
+                    ['productId' => $productId]
+                )
+            </td>
+        @endif
+    </tr>

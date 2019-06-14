@@ -3,13 +3,25 @@
     @csrf
     @method('PATCH')
 
-    <div class="flex w-1/2 mx-auto">
-        <input type="text" name="quantity" id="quantity" class="form-control text-center"
-        value="{{ $item->quantity }}">
+    <div class="flex w-3/4 mx-auto">
 
-        <button type="submit" class="btn">
-            <i class="fa fa-refresh"></i>
-        </button>
+        <div class="form-group">
+            <input type="text" name="quantity" id="quantity"
+            class="form-control text-center @error('quantity') is-invalid @enderror"
+            value="{{ $item->quantity }}">
+
+            @error('quantity')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
     </div>
 
 </form>

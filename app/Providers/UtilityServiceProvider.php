@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\Utilities\Price;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Utilities\ShoppingCart;
 
 class UtilityServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,15 @@ class UtilityServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /**
+         * Register a binding of a class with a related container.
+         */
+        $this->app->bind('product-price', function() {
+            return new Price();
+        });
+
+        $this->app->bind('shopping-cart', function() {
+            return new ShoppingCart();
+        });
     }
 }
