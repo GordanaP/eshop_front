@@ -2,10 +2,9 @@
 
 @section('title', 'Order Details')
 
-
 @section('content')
     <header class="flex justify-between mb-2">
-        <span class="text-2xl font-light">Review Order</span>
+        <span class="text-2xl font-light">Order Details</span>
 
         <div class="flex items-center">
             <a href="{{ route('products.index') }}" class="mr-4">
@@ -57,15 +56,9 @@
 
             <div class="w-2/3">
                 <div class="w-4/5 float-right">
-                    <table class="table bg-white text-xs">
-                        <thead class="uppercase">
-                            <th width="15%">Item</th>
-                            <th width="30%"></th>
-                            <th width="17%" class="text-center">Price</th>
-                            <th class="text-center" width="25%">Qty</th>
-                            <th class="text-right">Subtotal</th>
-                        </thead>
+                    <p class="mb-2 mr-4 font-bold">Your order</p>
 
+                    <table class="table bg-white text-xs">
                         <tbody>
                             @foreach ($cartItems as $productId => $item)
                                 @include('carts.partials.tables._row_item', [
