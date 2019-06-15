@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Cart;
 
 use Illuminate\Http\Request;
 use App\Facades\ShoppingCart;
-use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CartAddressRequest;
 
 class CartAddressController extends Controller
 {
-    public function store(Request $request)
+    public function store(CartAddressRequest $request)
     {
         $address = $request->check_delivery == 'on'
 
