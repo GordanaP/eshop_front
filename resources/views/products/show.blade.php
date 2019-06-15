@@ -16,7 +16,7 @@
             <p class="mt-3">{{ $product->description }}</p>
 
             <p class="mt-8">
-                @include('products.partials.forms._add_to_cart')
+                @include('carts.partials.forms._add_item_with_qty')
             </p>
         </div>
     </div>

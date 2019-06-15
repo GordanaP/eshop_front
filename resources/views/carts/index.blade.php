@@ -17,6 +17,7 @@
             </span>
         @endif
     </header>
+
     @if (! ShoppingCart::fromSession()->isEmpty())
         <table class="table bg-white">
             <thead>
@@ -29,10 +30,9 @@
             </thead>
             <tbody>
                 @foreach ($cartItems as $productId => $item)
-                    @include('carts.partials.tables._row_item', [
-                        'productId' => $productId,
-                        'item' => $item,
-                    ])
+
+                    @include('carts.partials.tables._row_item')
+
                 @endforeach
 
                 @include('carts.partials.tables._row_price')

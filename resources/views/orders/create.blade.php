@@ -11,7 +11,7 @@
                 Continue shopping
             </a>
 
-            @if (App\Services\Utilities\ShoppingCart::fromSession()->isNotEmpty())
+            @if (! ShoppingCart::fromSession()->isEmpty())
                 <a href="{{ route('carts.index') }}" class="btn btn-info text-white">
                     <i class="fa fa-shopping-cart fa-lg mr-1" aria-hidden="true"></i>
                     <span>Update cart</span>
@@ -61,10 +61,9 @@
                     <table class="table bg-white text-xs">
                         <tbody>
                             @foreach ($cartItems as $productId => $item)
-                                @include('carts.partials.tables._row_item', [
-                                    'productId' => $productId,
-                                    'item' => $item,
-                                ])
+
+                                @include('carts.partials.tables._row_item')
+
                             @endforeach
 
                             @include('carts.partials.tables._row_price')
@@ -85,8 +84,6 @@
 
 @section('scripts')
     <script>
-
-        // $('#shipping_address').hide();
 
         $(document).on('click', '#check_delivery', function(){
 

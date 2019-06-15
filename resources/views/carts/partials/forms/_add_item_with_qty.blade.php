@@ -1,7 +1,7 @@
-<form action="{{ route('carts.store', $product) }}" method="POST">
+<form action="{{route('carts.store', $product) }}" method="POST">
 
     @csrf
-    @method('PATCH')
+
 
     <div class="flex w-3/4">
         <div class="form-group mr-2">

@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Cart;
 
 use Illuminate\Http\Request;
 use App\Facades\ShoppingCart;
+use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CartAddressRequest;
 
 class CartAddressController extends Controller
 {
-    public function store(CartAddressRequest $request)
+    public function store(Request $request)
     {
         $address = $request->check_delivery == 'on'
 
-            ?  $request->all() : $request->billing;
+            ?  $request->all() : collect(['billing' => $request->billing]);
 
         ShoppingCart::fromSession()->complete($address);
 

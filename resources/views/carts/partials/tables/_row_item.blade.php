@@ -15,9 +15,7 @@
     </td>
     <td class="text-center">
         @if (request()->route()->named('carts.index'))
-            @include('carts.partials.forms._update_quantity',
-                ['productId' => $productId]
-            )
+            @include('carts.partials.forms._update_quantity')
         @else
             {{ $item->quantity }}
         @endif
@@ -25,11 +23,10 @@
     <td class="text-right">
         {{ Price::present($item->subtotal) }}
     </td>
+
     @if (request()->route()->named('carts.index'))
             <td class="text-right">
-                @include('carts.partials.forms._remove_item',
-                    ['productId' => $productId]
-                )
+                @include('carts.partials.forms._remove_item')
             </td>
         @endif
     </tr>

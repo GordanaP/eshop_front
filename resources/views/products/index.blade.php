@@ -10,9 +10,9 @@
             @foreach ($products->chunk(3) as $chunk)
                 <div class="row">
                     @foreach ($chunk as $product)
-                        @include('products.partials.html._product',
-                            ['product' => $product]
-                        )
+
+                        @include('products.partials.html._product')
+
                     @endforeach
                 </div>
             @endforeach

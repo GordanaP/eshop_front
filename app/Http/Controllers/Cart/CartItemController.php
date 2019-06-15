@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Cart;
 
 use App\Product;
 use App\Facades\ShoppingCart;
-use App\Http\Requests\CartRequest;
+use App\Http\Requests\CartItemRequest;
 use App\Http\Controllers\Controller;
 
 class CartItemController extends Controller
@@ -24,13 +24,13 @@ class CartItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\CartRequest  $request
+     * @param  \App\Http\Requests\CartItemRequest  $request
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function store(CartRequest $request, Product $product)
+    public function store(CartItemRequest $request, Product $product)
     {
-        ShoppingCart::fromSession()->add($product);
+        ShoppingCart::fromSession()->add($product, $request->quantity ?? 1);
 
         return back();
     }
@@ -38,11 +38,11 @@ class CartItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\CartRequest  $request
+     * @param  \App\Http\Requests\CartItemRequest  $request
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(CartRequest $request, Product $product)
+    public function update(CartItemRequest $request, Product $product)
     {
         ShoppingCart::fromSession()->update($product, $request->quantity);
 
