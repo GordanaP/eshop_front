@@ -24,11 +24,11 @@
     </div>
 
     <div class="form-group">
-        <input type="text" name="{{ $address }}[street]" placeholder="Street Address"
-        class="form-control @error($address.'.street') is-invalid @enderror"
+        <input type="text" name="{{ $address }}[street_address]" placeholder="Street Address"
+        class="form-control @error($address.'.street_address') is-invalid @enderror"
         >
 
-        @error($address.'.street')
+        @error($address.'.street_address')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="form-group">
-        <input type="text" name="{{ $address }}[email]" placeholder="example@domain.com"
+        <input type="text" name="{{ $address }}[email]" id="{{ $address }}Email" placeholder="example@domain.com"
         class="form-control @error($address.'.email') is-invalid @enderror"
         >
 

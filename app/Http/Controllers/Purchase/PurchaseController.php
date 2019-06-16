@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Customer;
 use Illuminate\Http\Request;
 use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
-use Stripe\{Stripe, Charge, Customer};
+use Stripe\{Stripe, Charge, Customer as StripeCustomer};
+use App\Http\Requests\CartAddressRequest;
 
 class PurchaseController extends Controller
 {
@@ -35,23 +37,27 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CartAddressRequest $request)
     {
         try {
+
             Stripe::setApiKey(config('services.stripe.secret'));
 
-            $customer = \Stripe\Customer::create([
+            $stripe_customer = StripeCustomer::create([
                   'email' => $request->stripeEmail,
                   'source'  => $request->stripeToken,
             ]);
 
             $charge = \Stripe\Charge::create([
-                'customer' => $customer->id,
+                'customer' => $stripe_customer->id,
                 'amount'   => ShoppingCart::fromSession()->getTotalInCents(),
-                'currency' => 'usd',
+                'currency' => config('services.stripe.currency'),
             ]);
 
+            Customer::createFrom($request->billing, $stripe_customer);
+
             ShoppingCart::fromSession()->destroy();
+
         } catch (\Exception $e) {
             return back()->with('danger', $e->getMessage());
         }

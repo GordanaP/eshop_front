@@ -22,13 +22,14 @@
 
     <hr>
 
-    <form action="{{ route('carts.addresses.store') }}" method="POST">
+    @include('partials._alerts')
+
+    <form action="{{ route('purchases.store') }}" method="POST">
 
         @csrf
 
         <div class="flex">
             <div class="w-1/3">
-
                 <div class="flex">
                     <p class="mb-2 mr-4 font-bold">Billing Address</p>
 
@@ -51,12 +52,14 @@
                         'address' => 'shipping'
                     ])
                 </div>
-
             </div>
 
             <div class="w-2/3">
                 <div class="w-4/5 float-right">
-                    <p class="mb-2 mr-4 font-bold">Your order</p>
+                    <p class="mb-2 font-bold flex items-center justify-between">
+                        Your order
+                        {{-- @include('carts.partials.forms._destroy_cart') --}}
+                    </p>
 
                     <table class="table bg-white text-xs">
                         <tbody>
@@ -71,15 +74,22 @@
                         </tbody>
                     </table>
 
-                    <button type="submit" class="btn btn-success ml-2 float-right">
-                        Place Order
-                    </button>
-    </form>
+                    <div class="float-right">
+                        <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ config('services.stripe.key') }}"
+                            data-amount="{{ ShoppingCart::fromSession()->getTotalInCents() }}"
+                            data-currency="{{ config('services.stripe.currency') }}"
 
-                    @include('carts.partials.forms._destroy_cart')
+                            data-name="Eshop Front"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto">
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>
+    </form>
 @endsection
 
 @section('scripts')

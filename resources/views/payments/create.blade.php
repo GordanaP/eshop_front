@@ -2,7 +2,6 @@
 
 @section('title', 'Pay for the order')
 
-
 @section('content')
     <p class="text-2xl font-light">Payment details</p>
 
@@ -24,10 +23,6 @@
                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                 data-locale="auto">
           </script>
-
-            @if ($errors->has('billing'))
-                <div class="text-red-600">{{ $errors->first('billing') }}</div>
-            @endif
 
         </form>
 

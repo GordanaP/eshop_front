@@ -26,7 +26,7 @@ class CartAddressRequest extends FormRequest
         return [
             'billing.first_name' => 'required',
             'billing.last_name' => 'required',
-            'billing.street' => 'required',
+            'billing.street_address' => 'required',
             'billing.postal_code' => 'required',
             'billing.city' => 'required',
             'billing.country' => 'required',

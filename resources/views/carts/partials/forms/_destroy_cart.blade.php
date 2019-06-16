@@ -3,7 +3,7 @@
     @csrf
     @method('DELETE')
 
-    <button type="submit" class="btn btn-danger pull-right">
+    <button type="submit" class="btn btn-danger">
         @if (request()->route()->named('orders.create'))
             Cancel Order
         @else
