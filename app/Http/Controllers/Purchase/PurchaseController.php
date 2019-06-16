@@ -37,8 +37,6 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        //
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $customer = \Stripe\Customer::create([
@@ -51,6 +49,8 @@ class PurchaseController extends Controller
             'amount'   => ShoppingCart::fromSession()->getTotalInCents(),
             'currency' => 'usd',
         ]);
+
+        ShoppingCart::fromSession()->destroy();
 
         return 'All done';
     }
