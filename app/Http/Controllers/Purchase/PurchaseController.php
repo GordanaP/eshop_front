@@ -37,20 +37,24 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        Stripe::setApiKey(config('services.stripe.secret'));
+        try {
+            Stripe::setApiKey(config('services.stripe.secret'));
 
-        $customer = \Stripe\Customer::create([
-              'email' => $request->stripeEmail,
-              'source'  => $request->stripeToken,
-        ]);
+            $customer = \Stripe\Customer::create([
+                  'email' => $request->stripeEmail,
+                  'source'  => $request->stripeToken,
+            ]);
 
-        $charge = \Stripe\Charge::create([
-            'customer' => $customer->id,
-            'amount'   => ShoppingCart::fromSession()->getTotalInCents(),
-            'currency' => 'usd',
-        ]);
+            $charge = \Stripe\Charge::create([
+                'customer' => $customer->id,
+                'amount'   => ShoppingCart::fromSession()->getTotalInCents(),
+                'currency' => 'usd',
+            ]);
 
-        ShoppingCart::fromSession()->destroy();
+            ShoppingCart::fromSession()->destroy();
+        } catch (\Exception $e) {
+            return back()->with('danger', $e->getMessage());
+        }
 
         return 'All done';
     }
