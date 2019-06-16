@@ -144,7 +144,7 @@ class ShoppingCart extends Collection
      *
      * @return integer
      */
-    private function getTotalInCents()
+    public function getTotalInCents()
     {
         return collect([
             $this->getSubtotalInCents(),
@@ -160,7 +160,7 @@ class ShoppingCart extends Collection
      */
     private function getShippingCostsInCents()
     {
-        return 1000;
+        return $this->getSubtotalInCents() * 0.1;
     }
 
     /**

@@ -17,6 +17,6 @@ class CartAddressController extends Controller
 
         ShoppingCart::fromSession()->complete($address);
 
-        return back();
+        return redirect()->route('purchases.create');
     }
 }

@@ -3,7 +3,6 @@
 
 <head>
     @include('partials._head')
-    @yield('links')
 </head>
 
 <body>

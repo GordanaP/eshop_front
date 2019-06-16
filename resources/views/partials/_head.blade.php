@@ -11,6 +11,14 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/album.css') }}" rel="stylesheet">
+
+@yield('links')
+
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+

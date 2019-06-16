@@ -33,5 +33,9 @@ Route::delete('carts/{product}', 'Cart\CartItemController@destroy')->name('carts
  */
 Route::resource('orders', 'Order\OrderController');
 
-Route::post('addresses', 'AddressController@store')->name('addresses.store');
-Route::get('addresses/create', 'AddressController@create')->name('addresses.create');
+
+/**
+ * Payment
+ */
+Route::post('purchases', 'Purchase\PurchaseController@store')->name('purchases.store');
+Route::get('purchases/create', 'Purchase\PurchaseController@create')->name('purchases.create');
