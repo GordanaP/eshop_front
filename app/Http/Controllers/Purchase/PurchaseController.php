@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Customer;
+use App\Shipping;
+use App\Facades\Price;
 use Illuminate\Http\Request;
 use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
-use Stripe\{Stripe, Charge, Customer as StripeCustomer};
 use App\Http\Requests\CartAddressRequest;
+use Stripe\{Stripe, Charge, Customer as StripeCustomer};
 
 class PurchaseController extends Controller
 {
@@ -37,24 +39,28 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CartAddressRequest $request)
+    public function store(Request $request)
     {
         try {
 
             Stripe::setApiKey(config('services.stripe.secret'));
 
-            $stripe_customer = StripeCustomer::create([
+            $stripeCustomer = StripeCustomer::create([
                   'email' => $request->stripeEmail,
                   'source'  => $request->stripeToken,
             ]);
 
             $charge = \Stripe\Charge::create([
-                'customer' => $stripe_customer->id,
-                'amount'   => ShoppingCart::fromSession()->getTotalInCents(),
+                'customer' => $stripeCustomer->id,
+                'amount'   => Price::toCents(ShoppingCart::fromSession()->getTotalInDollars()),
                 'currency' => config('services.stripe.currency'),
             ]);
 
-            Customer::createFrom($request->billing, $stripe_customer);
+            $request->check_delivery == 'on' ?  $shipping = Shipping::create($request->shipping) : '' ;
+
+            $customer = Customer::createFrom($request->billing, $stripeCustomer);
+
+            $customer->shippings()->save($shipping);
 
             ShoppingCart::fromSession()->destroy();
 

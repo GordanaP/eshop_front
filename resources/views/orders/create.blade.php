@@ -78,7 +78,7 @@
                         <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="{{ config('services.stripe.key') }}"
-                            data-amount="{{ ShoppingCart::fromSession()->getTotalInCents() }}"
+                            data-amount="{{ Price::toCents(ShoppingCart::fromSession()->getTotalInDollars()) }}"
                             data-currency="{{ config('services.stripe.currency') }}"
 
                             data-name="Eshop Front"

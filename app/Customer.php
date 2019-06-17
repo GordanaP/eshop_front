@@ -11,6 +11,11 @@ class Customer extends Model
         'country', 'phone', 'email', 'stripe_id'
     ];
 
+    public function shippings()
+    {
+        return $this->hasMany(Shipping::class);
+    }
+
     /**
      * Create a new customer.
      *
@@ -18,12 +23,12 @@ class Customer extends Model
      * @param  array $stripe_customer
      * @return \App\Customer
      */
-    public static function createFrom(array $data, $stripe_customer)
+    public static function createFrom(array $data, $stripeCustomer)
     {
-        $billing_address = collect($data)
-            ->put('stripe_id', $stripe_customer->id)
+        $billingAddress = collect($data)
+            ->put('stripe_id', $stripeCustomer->id)
             ->toArray();
 
-        return static::create($billing_address);
+        return static::create($billingAddress);
     }
 }

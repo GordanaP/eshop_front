@@ -129,6 +129,11 @@ class ShoppingCart extends Collection
         return (config('cart.tax') * 100).'%';
     }
 
+    public function getTotalInDollars()
+    {
+        return Price::toDollars($this->getTotalInCents());
+    }
+
     /**
      * Determine if there is any item in the cart.
      *

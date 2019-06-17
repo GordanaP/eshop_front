@@ -40,7 +40,7 @@ class CartAddressRequest extends FormRequest
             'shipping.city' => 'required_if:check_delivery,on',
             'shipping.country' => 'required_if:check_delivery,on',
             'shipping.phone' => 'required_if:check_delivery,on',
-            'shipping.email' => 'required_if:check_delivery,on',
+            'shipping.email' => 'nullable|email',
         ];
     }
 }
