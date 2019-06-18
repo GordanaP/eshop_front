@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Order;
 
 use App\Order;
+use App\Customer;
+use App\Shipping;
+use App\Facades\Price;
 use Illuminate\Http\Request;
 use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
+use Stripe\{Stripe, Charge, Customer as StripeCustomer};
+
 
 class OrderController extends Controller
 {
@@ -39,7 +44,34 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            Stripe::setApiKey(config('services.stripe.secret'));
+
+            $stripeCustomer = StripeCustomer::create([
+                  'email' => $request->stripeEmail,
+                  'source'  => $request->stripeToken,
+            ]);
+
+            $charge = \Stripe\Charge::create([
+                'customer' => $stripeCustomer->id,
+                'amount'   => Price::toCents(ShoppingCart::fromSession()->getTotalInDollars()),
+                'currency' => config('services.stripe.currency'),
+            ]);
+
+            $request->check_delivery == 'on' ?  $shipping = Shipping::create($request->shipping) : '' ;
+
+            $customer = Customer::createFrom($request->billing, $stripeCustomer);
+
+            $customer->shippings()->save($shipping);
+
+            ShoppingCart::fromSession()->destroy();
+
+        } catch (\Exception $e) {
+            return back()->with('danger', $e->getMessage());
+        }
+
+        return 'All done';
     }
 
     /**

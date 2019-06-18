@@ -32,10 +32,3 @@ Route::delete('carts/{product}', 'Cart\CartItemController@destroy')->name('carts
  * Order
  */
 Route::resource('orders', 'Order\OrderController');
-
-
-/**
- * Payment
- */
-Route::post('purchases', 'Purchase\PurchaseController@store')->name('purchases.store');
-Route::get('purchases/create', 'Purchase\PurchaseController@create')->name('purchases.create');

@@ -24,7 +24,7 @@
 
     @include('partials._alerts')
 
-    <form action="{{ route('purchases.store') }}" method="POST">
+    <form action="{{ route('orders.store') }}" method="POST">
 
         @csrf
 
